@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 
 //Components import
-import ExpenseItem from "./components/Expenses/ExpenseItem";
 import NewExpense from "./components/NewExpense/NewExpense";
-import Card from "./components/UI/Card";
+import Expenses from "./components/Expenses/Expenses";
 
-//Css import
-import './components/Expenses/Expenses.css';
 
 function App() {
-  const expenses = [
+  const DUMMY_EXPENSES = [
     {
       id: 'e1',
       title: 'Toilet Paper',
@@ -31,24 +28,20 @@ function App() {
     },
   ];
 
-  const [newExpenses, setNewExpensesArray] = useState(expenses)
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
 
   const addExpenseHandler = (expenseToBeAdded) => {
-    const NewExpensesArray = [
-      ...newExpenses,
-      expenseToBeAdded
-    ]
-
-    setNewExpensesArray(NewExpensesArray);
+    const NewExpensesArray = (prevState) => {
+      return [expenseToBeAdded, ...prevState]
+    }
+ 
+    setExpenses(NewExpensesArray);
   }
 
   return (
     <div>
-      <h2>Let's get started!</h2>
       <NewExpense onAddExpense={addExpenseHandler}/>
-      <Card className="expenses">
-        <ExpenseItem expenses={newExpenses}/>
-      </Card>      
+      <Expenses newExpenses={expenses}/>     
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //Component imports
 import ExpenseForm from "./ExpenseForm";
@@ -7,18 +7,21 @@ import ExpenseForm from "./ExpenseForm";
 import './NewExpense.css';
 
 const NewExpense = (props) => {
+    const [ toggleForm, setToggleForm ] = useState(false);
 
     const saveExpenseDataHandler = (enteredExpenseData) => {
         const expenseData = {
             ...enteredExpenseData
         }
-
         props.onAddExpense(expenseData);
     }
 
+    const AddNewExpenseHandler = () => setToggleForm(!toggleForm);
+    const AddNewExpenseButton = <button onClick={AddNewExpenseHandler}>Add New Expense</button>;
+
     return (
         <div className="new-expense">
-            <ExpenseForm onSaveExpenseData={saveExpenseDataHandler}/>
+            { !toggleForm ? AddNewExpenseButton : <ExpenseForm cancelHandler={AddNewExpenseHandler} onSaveExpenseData={saveExpenseDataHandler}/> }
         </div>
     );
 }

@@ -8,32 +8,32 @@ import ExpenseDate from "./ExpenseDate";
 import './ExpenseItem.css'
 
 const ExpenseItem = (props) => {
-
-    const renderExpenseItems = () => {
-        const expensesList = props.expenses;
+    const renderExpenseItems = () => {   
         return (
-            expensesList.map( (expense) => {
+            props.expenses.map( (expensesFiltered) => {
                 return (
-                    <Card className="expense-item" key={expense.date}>
-                        <ExpenseDate expenseDate={expense.date} />
-                        
-                        <div className="expense-item__description">
-                            <h2>
-                                {expense.title}
-                            </h2>
-                            <div className="expense-item__price">
-                                ${expense.amount}
+                    <li key={expensesFiltered.date}>
+                        <Card className="expense-item">
+                            <ExpenseDate expenseDate={expensesFiltered.date} />
+                            <div className="expense-item__description">
+                                <h2>
+                                    {expensesFiltered.title}
+                                </h2>
+                                <div className="expense-item__price">
+                                    {'$'+expensesFiltered.amount}
+                                </div>
                             </div>
-                        </div>
-                    </Card>
+                        </Card>
+                    </li>
                 );
-            })
+            }                
+            )                 
         );
     }
 
     return (
         <>
-            {renderExpenseItems()}
+            { props.expenses.length === 0 ? <p className="expenses-list__fallback">No Expenses Found.</p> : renderExpenseItems() }
         </>
     );
 }

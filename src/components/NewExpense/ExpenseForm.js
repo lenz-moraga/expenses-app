@@ -25,9 +25,9 @@ const ExpenseForm = (props) => {
     //     );
     // }
 
-    const expenseTitleChangeHandler = ( {target: {value}} ) => setExpenseTitle(value)
-    const expenseAmountChangeHandler = ( {target: {value}} ) => setExpenseAmount(value)
-    const expenseDateChangeHandler = ( {target: {value}} ) => setExpenseDate(value)
+    const expenseTitleChangeHandler = ( {target: {value}} ) => setExpenseTitle(value);
+    const expenseAmountChangeHandler = ( {target: {value}} ) => setExpenseAmount(value);
+    const expenseDateChangeHandler = ( {target: {value}} ) => setExpenseDate(value);
 
     const submitHandler = (evt) => {
         // we use the evt.preventDefault(); to prevent the reload of the page after submitting the form
@@ -35,7 +35,7 @@ const ExpenseForm = (props) => {
         
         const expenseData = {
             title: expenseTitle,
-            amount: expenseAmount,
+            amount: +expenseAmount,
             date: new Date(expenseDate),
         };
 
@@ -45,6 +45,7 @@ const ExpenseForm = (props) => {
         setExpenseTitle('');
         setExpenseAmount('');
         setExpenseDate('');
+        props.cancelHandler();
     }
 
     return (
@@ -64,6 +65,7 @@ const ExpenseForm = (props) => {
                 </div>
             </div>
             <div className="new-expense__actions">
+                <button type="button" onClick={props.cancelHandler} >Cancel</button> 
                 <button type="submit">Add Expense</button>
             </div>
         </form>
